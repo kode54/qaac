@@ -34,6 +34,7 @@ public:
 
     bool open( std::string name, Mode mode );
     bool seek( Size pos );
+	bool get_size( Size& size );
     bool read( void* buffer, Size size, Size& nin, Size maxChunkSize );
     bool write( const void* buffer, Size size, Size& nout, Size maxChunkSize );
     bool close();
@@ -142,6 +143,20 @@ StandardFileProvider::seek( Size pos )
     }
 
     return false;
+}
+
+bool
+StandardFileProvider::get_size( Size& size )
+{
+	LARGE_INTEGER n;
+
+	ASSERT(_handle != INVALID_HANDLE_VALUE);
+
+	n.LowPart = GetFileSize( _handle, (LPDWORD) &n.HighPart );
+
+	size = n.QuadPart;
+
+	return false;
 }
 
 /**

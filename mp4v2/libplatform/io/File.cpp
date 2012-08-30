@@ -67,6 +67,7 @@ File::open( std::string name_, Mode mode_ )
         return true;
 
     _isOpen = true;
+
     return false;
 }
 
@@ -116,6 +117,18 @@ File::write( const void* buffer, Size size, Size& nout, Size maxChunkSize )
         _size = _position;
 
     return false;
+}
+
+bool
+File::get_size( Size & size )
+{
+	if ( !_isOpen )
+		return true;
+
+	if( _provider.get_size( size ))
+		return true;
+
+	return false;
 }
 
 bool
@@ -170,6 +183,12 @@ bool
 CustomFileProvider::seek( Size pos )
 {
     return _call.seek( _handle, pos );
+}
+
+bool
+CustomFileProvider::get_size( Size & size )
+{
+	return _call.get_size( _handle, &size );
 }
 
 bool

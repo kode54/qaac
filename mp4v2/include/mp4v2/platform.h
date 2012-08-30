@@ -26,7 +26,10 @@
     #endif
 #endif
 
-#if defined( _WIN32 ) && !defined( __MINGW32__ )
+#if 1
+#define MP4V2_EXPORT
+#else
+#if defined( _WIN32 ) || defined( __MINGW32__ )
 #   if defined( MP4V2_EXPORTS )
 #       define MP4V2_EXPORT __declspec(dllexport)
 #   elif defined( MP4V2_USE_DLL_IMPORT ) || !defined( MP4V2_USE_STATIC_LIB )
@@ -36,6 +39,7 @@
 #   endif
 #else
 #   define MP4V2_EXPORT __attribute__((visibility("default")))
+#endif
 #endif
 
 #if defined( __GNUC__ )
