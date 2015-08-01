@@ -120,18 +120,6 @@ File::write( const void* buffer, Size size, Size& nout, Size maxChunkSize )
 }
 
 bool
-File::get_size( Size & size )
-{
-	if ( !_isOpen )
-		return true;
-
-	if( _provider.get_size( size ))
-		return true;
-
-	return false;
-}
-
-bool
 File::close()
 {
     if( !_isOpen )
@@ -183,12 +171,6 @@ bool
 CustomFileProvider::seek( Size pos )
 {
     return _call.seek( _handle, pos );
-}
-
-bool
-CustomFileProvider::get_size( Size & size )
-{
-	return _call.get_size( _handle, &size );
 }
 
 bool

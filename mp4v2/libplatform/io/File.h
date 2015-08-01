@@ -27,7 +27,6 @@ public:
 
     virtual bool open( std::string name, Mode mode ) = 0;
     virtual bool seek( Size pos ) = 0;
-	virtual bool get_size( Size & size ) = 0;
     virtual bool read( void* buffer, Size size, Size& nin, Size maxChunkSize ) = 0;
     virtual bool write( const void* buffer, Size size, Size& nout, Size maxChunkSize ) = 0;
     virtual bool close() = 0;
